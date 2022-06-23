@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="debug" name="TestHippodrome" packages="">
+    <Appenders>
+        <Console name = "CONSOL" target = "SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/hippodrome.log" filePattern="logs/$${date:yyyy-MM}/app-%d{yyyy-dd-MM}.log.gz">
+          <!--  <TimeFilter start="05:00:00" end="05:30:00" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20">
+                <Delete basePath="logs">
+                    <IfFileName glob="*/hippodrome.*.log*"/>
+                    <IfLastModifie age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+</Configuration>

@@ -1,17 +1,13 @@
-
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
-@RunWith(MockitoJUnitRunner.class)
 public class HorseTest {
     String nameHorse = "horseOne";
     Double speedHorse = 50.0;
@@ -39,7 +35,7 @@ public class HorseTest {
                     new Horse(null, speedHorse, distanceHorse);
                 }
         );
-        assertEquals("Name cannot be null", illegalArgumentException.getMessage());
+        assertEquals("Name cannot be null.", illegalArgumentException.getMessage());
     }
 
     @ParameterizedTest
@@ -162,7 +158,6 @@ public class HorseTest {
         }
     }
 
-
     @ParameterizedTest
     @DisplayName("Test14: Проверить, что метод присваивает дистанции значение высчитанное по формуле")
     @ValueSource(doubles = {10.0, 20.0, 35.5})
@@ -171,7 +166,7 @@ public class HorseTest {
             horseMockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(number);
             Horse horseOne = new Horse(nameHorse, speedHorse, distanceHorse);
             horseOne.move();
-            double distance = distanceHorse + 31 * number;
+            double distance = distanceHorse + speedHorse * number;
             assertEquals(distance, horseOne.getDistance());
         }
     }
